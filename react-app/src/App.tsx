@@ -1,7 +1,9 @@
 // App.tsx
+
 import React, { useState } from 'react';
 import Form from './components/Form';
 import CardsList from './components/CardsList';
+import './App.css';
 
 interface CardData {
   name: string;
@@ -24,9 +26,11 @@ const App: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="app-container">
       <Form onSubmit={handleFormSubmit} />
-      <CardsList cards={cards} onDelete={handleDeleteCard} />
+      <div className="cards-wrapper">
+        <CardsList cards={cards} onDelete={handleDeleteCard} />
+      </div>
     </div>
   );
 };
