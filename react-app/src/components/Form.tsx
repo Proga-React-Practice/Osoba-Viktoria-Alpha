@@ -2,6 +2,28 @@
 import React, { useState } from 'react';
 import './Form.css'; 
 
+enum Mood {
+  Happy = "Happy",
+  Sad = "Sad",
+  Energetic = "Energetic",
+  Relaxing = "Relaxing",
+  Chill = "Chill",
+  PumpUp = "Pump-up",
+}
+
+enum Genre {
+  Pop = "Pop",
+  Rock = "Rock",
+  HipHopRap = "Hip-hop/Rap",
+  ElectronicDance = "Electronic/Dance",
+  RnBSoul = "R&B/Soul",
+  Classical = "Classical",
+  Jazz = "Jazz",
+  Country = "Country",
+  Alternative = "Alternative",
+  Indie = "Indie",
+}
+
 interface FormProps {
   onSubmit: (formData: FormData) => void;
 }
@@ -9,15 +31,15 @@ interface FormProps {
 interface FormData {
   name: string;
   age: string;
-  mood: string;
-  genres: string[];
+  mood: Mood;
+  genres: Genre[];
 }
 
 const Form: React.FC<FormProps> = ({ onSubmit }) => {
   const [formData, setFormData] = useState<FormData>({
     name: '',
     age: '',
-    mood: '',
+    mood: Mood.Happy,
     genres: [],
   });
 
@@ -27,7 +49,7 @@ const Form: React.FC<FormProps> = ({ onSubmit }) => {
   };
 
   const handleGenreChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedGenres = Array.from(e.target.selectedOptions, (option) => option.value);
+    const selectedGenres = Array.from(e.target.selectedOptions, (option) => option.value as Genre);
     setFormData({ ...formData, genres: selectedGenres });
   };
 
@@ -37,7 +59,7 @@ const Form: React.FC<FormProps> = ({ onSubmit }) => {
     setFormData({
       name: '',
       age: '',
-      mood: '',
+      mood: Mood.Happy,
       genres: [],
     });
   };
@@ -46,13 +68,13 @@ const Form: React.FC<FormProps> = ({ onSubmit }) => {
     setFormData({
       name: '',
       age: '',
-      mood: '',
+      mood: Mood.Happy,
       genres: [],
     });
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className='form-container'>
       <h2>Playlist Preferences</h2>
       <label>
         Name:
@@ -66,35 +88,25 @@ const Form: React.FC<FormProps> = ({ onSubmit }) => {
       <br />
       <label>
         Mood:
-        <select name="mood" value={formData.mood} onChange={handleInputChange} required>
-          <option value="">Select mood</option>
-          <option value="Happy">Happy</option>
-          <option value="Sad">Sad</option>
-          <option value="Energetic">Energetic</option>
-          <option value="Relaxing">Relaxing</option>
-          <option value="Chill">Chill</option>
-          <option value="Pump-up">Pump-up</option>
+        <select name="mood" value={formData.mood} onChange={handleInputChange} >
+          <option value="" disabled>Select mood</option>
+          {Object.values(Mood).map(mood => (
+            <option key={mood} value={mood}>{mood}</option>
+          ))}
         </select>
       </label>
       <br />
       <label>
         Genre Preferences (select up to 3):
         <select multiple name="genres" value={formData.genres} onChange={handleGenreChange} required>
-          <option value="Pop">Pop</option>
-          <option value="Rock">Rock</option>
-          <option value="Hip-hop/Rap">Hip-hop/Rap</option>
-          <option value="Electronic/Dance">Electronic/Dance</option>
-          <option value="R&B/Soul">R&B/Soul</option>
-          <option value="Classical">Classical</option>
-          <option value="Jazz">Jazz</option>
-          <option value="Country">Country</option>
-          <option value="Alternative">Alternative</option>
-          <option value="Indie">Indie</option>
+          {Object.values(Genre).map(genre => (
+            <option key={genre} value={genre}>{genre}</option>
+          ))}
         </select>
       </label>
       <br />
-      <button className="bn47"  type="submit">Submit</button>
-      <button className="button-86"  type="button" onClick={clearForm}>Clear Form</button>
+      <button type="submit">Submit</button>
+      <button type="button" onClick={clearForm}>Clear Form</button>
     </form>
   );
 };
