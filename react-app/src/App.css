@@ -1,0 +1,37 @@
+/* App.css */
+.app-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.cards-wrapper {
+  flex: 1; 
+  max-height: 95vh; 
+  overflow-y: auto; 
+  overflow-x: hidden;
+  display: flex; 
+  flex-wrap: wrap; 
+  gap: 20px; 
+  /* Custom scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: rgb(100, 106, 243) transparent;
+}
+
+
+.cards-wrapper::-webkit-scrollbar {
+  width: 8px; 
+}
+
+.cards-wrapper::-webkit-scrollbar-thumb {
+  background-color: rgb(100, 106, 243); 
+  border-radius: 6px; 
+}
