@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { TextField, Typography, Select, MenuItem, Button, FormControl, InputLabel } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { SelectChangeEvent } from '@mui/material';
 
 enum Mood {
   Happy = "Happy",
@@ -66,15 +67,17 @@ const Form: React.FC<FormProps> = ({ onSubmit }) => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleMoodChange = (e: React.ChangeEvent<{ name?: string | undefined; value: Mood }>) => {
+  const handleMoodChange = (e: SelectChangeEvent<Mood>) => {
     const selectedMood = e.target.value as Mood;
     setFormData({ ...formData, mood: selectedMood });
   };
-
-  const handleGenreChange = (e: React.ChangeEvent<{ name?: string | undefined; value: Genre[] }>) => {
+  
+  
+  const handleGenreChange = (e: SelectChangeEvent<typeof formData.genres>) => {
     const selectedGenres = e.target.value as Genre[];
     setFormData({ ...formData, genres: selectedGenres });
   };
+  
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
