@@ -62,6 +62,8 @@ const Form: React.FC<FormProps> = ({ onSubmit }) => {
     genres: [],
   });
 
+  
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -81,6 +83,17 @@ const Form: React.FC<FormProps> = ({ onSubmit }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+  if (!formData.name || !formData.age || !formData.mood || formData.genres.length === 0) {
+    alert('Please fill in all fields.');
+    return;
+  }
+
+  if (formData.genres.length > 3) {
+    alert('Please select up to 3 genres.');
+    return;
+  }
+
     onSubmit(formData);
     clearForm();
   };
