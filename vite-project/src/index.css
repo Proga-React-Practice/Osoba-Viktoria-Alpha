@@ -3,7 +3,6 @@
 body {
   /* background-color: #101113; */
   font-family: 'Montserrat', sans-serif;
-  overflow: hidden;
   margin: 40px;
 }
 
@@ -14,7 +13,35 @@ body {
   border-image: linear-gradient(#646bf3, #ffffff) 10;
   border-width: 0.1px;
   border-style: solid;
+  opacity: 0; 
+  transform: perspective(1000px) rotateY(-90deg); 
+  animation: form-flip-in 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards; 
 }
+
+@keyframes form-flip-in {
+  0% {
+    opacity: 0;
+    transform: perspective(1000px) rotateY(-90deg);
+  }
+  80% {
+    opacity: 1;
+    transform: perspective(1000px) rotateY(10deg);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(1000px) rotateY(0deg);
+  }
+}
+
+
+/* For mobile */
+@media screen and (max-width: 600px) {
+  .form-container {
+    max-width: 90vw;
+    padding: 20px;
+  }
+}
+
 
 .form-container h2 {
   margin-bottom: 20px;
@@ -137,14 +164,9 @@ body {
   display: flex; 
   flex-wrap: wrap; 
   gap: 20px; 
-
-
-  
 /* Custom scrollbar */
   scrollbar-width: thin;
 }
-
-
 .cards-wrapper::-webkit-scrollbar {
   width: 8px; 
 }
@@ -168,7 +190,9 @@ body {
   justify-content: center;
   margin-left: 18px;
   /* color: #fefefe; */
+  animation: fadeIn 0.5s ease forwards;
 }
+
 
 .bg {
   position: absolute;
@@ -200,6 +224,9 @@ body {
 }
 
 
+
+
+
 @keyframes blob-bounce {
   0% {
     transform: translate(-100%, -100%) translate3d(0, 0, 0);
@@ -219,4 +246,14 @@ body {
 }
 
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
