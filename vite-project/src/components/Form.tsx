@@ -1,8 +1,7 @@
-//Form.tsx
 import React, { useState } from 'react';
-import { TextField, Typography, Select, MenuItem, Button, FormControl, InputLabel } from '@mui/material';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { TextField, Typography, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 import { SelectChangeEvent } from '@mui/material';
+import { FormContainer, CustomButton } from './style'; 
 
 enum Mood {
   Happy = "Happy",
@@ -37,23 +36,6 @@ interface FormData {
   genres: Genre[];
 }
 
-const theme = createTheme({
-  typography: {
-    fontFamily: ['Montserrat', 'sans-serif'].join(','),
-  },
-  palette: {
-    background: {
-      default: '#101113',
-    },
-    primary: {
-      main: 'rgb(100, 106, 243)',
-    },
-    secondary: {
-      main: '#fefefe',
-    },
-  },
-});
-
 const Form: React.FC<FormProps> = ({ onSubmit }) => {
   const [formData, setFormData] = useState<FormData>({
     name: '',
@@ -61,8 +43,6 @@ const Form: React.FC<FormProps> = ({ onSubmit }) => {
     mood: '',
     genres: [],
   });
-
-  
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -74,25 +54,23 @@ const Form: React.FC<FormProps> = ({ onSubmit }) => {
     setFormData({ ...formData, mood: selectedMood });
   };
   
-  
   const handleGenreChange = (e: SelectChangeEvent<typeof formData.genres>) => {
     const selectedGenres = e.target.value as Genre[];
     setFormData({ ...formData, genres: selectedGenres });
   };
-  
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-  if (!formData.name || !formData.age || !formData.mood || formData.genres.length === 0) {
-    alert('Please fill in all fields.');
-    return;
-  }
+    if (!formData.name || !formData.age || !formData.mood || formData.genres.length === 0) {
+      alert('Please fill in all fields.');
+      return;
+    }
 
-  if (formData.genres.length > 3) {
-    alert('Please select up to 3 genres.');
-    return;
-  }
+    if (formData.genres.length > 3) {
+      alert('Please select up to 3 genres.');
+      return;
+    }
 
     onSubmit(formData);
     clearForm();
@@ -108,9 +86,9 @@ const Form: React.FC<FormProps> = ({ onSubmit }) => {
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <form onSubmit={handleSubmit} className='form-container'>
-        <Typography variant="h2" gutterBottom style={{ color: theme.palette.primary.main }}>
+    <FormContainer> 
+      <form onSubmit={handleSubmit}>
+        <Typography variant="h2" gutterBottom>
           Playlist Preferences
         </Typography>
         <TextField
@@ -164,14 +142,14 @@ const Form: React.FC<FormProps> = ({ onSubmit }) => {
             ))}
           </Select>
         </FormControl>
-        <Button type="submit" className='btn' variant="contained" color="primary">
+        <CustomButton type="submit" variant="contained" color="primary">
           Submit
-        </Button>
-        <Button type="button" className='btn' onClick={clearForm} variant="contained" color="secondary">
+        </CustomButton>
+        <CustomButton type="button" onClick={clearForm} variant="contained" color="secondary">
           Clear Form
-        </Button>
+        </CustomButton>
       </form>
-    </ThemeProvider>
+    </FormContainer>
   );
 };
 
