@@ -208,7 +208,8 @@ export const CardContainer = styled(MuiCard)({
     overflow: 'hidden',
   },
 
-  '& .blob': {
+  '&::before': {
+    content: '""',
     position: 'absolute',
     zIndex: 1,
     top: '50%',
@@ -219,6 +220,7 @@ export const CardContainer = styled(MuiCard)({
     backgroundColor: 'rgb(100, 106, 243)',
     opacity: 0.2,
     animation: 'blob-bounce 5s infinite ease',
+    transform: 'translate(-100%, -100%) translate3d(0, 0, 0)',
   },
 
   '& .card-content': {
@@ -255,3 +257,4 @@ export const CardContainer = styled(MuiCard)({
     },
   },
 });
+
