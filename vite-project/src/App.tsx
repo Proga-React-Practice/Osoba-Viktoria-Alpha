@@ -4,7 +4,7 @@ import CardsList from './components/CardsList';
 import MaterialUISwitch from './components/StyledSwitch'; 
 import { ThemeProvider } from '@mui/material';
 import { createCustomTheme } from './components/theme';
-import { AppContainer, CardsWrapper, ToggleContainer, GlobalStyle } from './components/style'; // Import your styled components file here
+import { AppContainer, CardsWrapper, ToggleContainer, GlobalStyle } from './components/style';
 
 interface CardData {
   name: string;
