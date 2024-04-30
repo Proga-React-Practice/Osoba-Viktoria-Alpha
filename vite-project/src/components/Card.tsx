@@ -1,5 +1,5 @@
 import React from 'react';
-import { CardContent, Typography, Box } from '@mui/material';
+import { CardContent, Typography } from '@mui/material';
 import { CardContainer, DeleteButton } from './style';
 
 interface CardData {
@@ -17,8 +17,6 @@ interface CardProps {
 const CardComponent: React.FC<CardProps> = ({ card, onDelete }) => {
   return (
     <CardContainer variant="outlined">
-      <Box component="div" className="bg"></Box>
-      <Box component="div" className="blob"></Box>
       <CardContent className="card-content">
         <Typography variant="body1">Name: {card.name}</Typography>
         <Typography variant="body1">Age: {card.age}</Typography>
