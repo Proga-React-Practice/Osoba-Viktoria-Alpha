@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TextField, Typography, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
+import { TextField, Typography, Select, MenuItem, FormControl, InputLabel, Box } from '@mui/material';
 import { SelectChangeEvent } from '@mui/material';
 import { FormContainer, CustomButton } from './style'; 
 
@@ -86,6 +86,7 @@ const Form: React.FC<FormProps> = ({ onSubmit }) => {
   };
 
   return (
+    <Box>
     <FormContainer> 
       <form onSubmit={handleSubmit}>
         <Typography variant="h2" gutterBottom>
@@ -150,6 +151,7 @@ const Form: React.FC<FormProps> = ({ onSubmit }) => {
         </CustomButton>
       </form>
     </FormContainer>
+    </Box>
   );
 };
 
