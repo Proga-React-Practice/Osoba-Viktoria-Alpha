@@ -1,7 +1,6 @@
-// CardsList.tsx
 import React from 'react';
 import Card from './Card';
-import './CardsList.css';
+import { CardsWrapper } from './style'; 
 
 interface CardData {
   name: string;
@@ -17,13 +16,12 @@ interface CardsListProps {
 
 const CardsList: React.FC<CardsListProps> = ({ cards, onDelete }) => {
   return (
-    <div className="cards-wrapper">
+    <CardsWrapper>
       {cards.map((card, index) => (
         <Card key={index} card={card} onDelete={() => onDelete(index)} />
       ))}
-    </div>
+    </CardsWrapper>
   );
 };
 
 export default CardsList;
-
