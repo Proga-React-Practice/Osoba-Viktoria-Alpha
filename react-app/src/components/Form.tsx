@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { TextField, Typography, Select, MenuItem, FormControl, InputLabel, Box } from '@mui/material';
+import { TextField, Typography, Select, MenuItem, FormControl, InputLabel, Button, Box } from '@mui/material';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { SelectChangeEvent } from '@mui/material';
-import { FormContainer, CustomButton } from './style'; 
+import './validation';
 
 enum Mood {
   Happy = "Happy",
@@ -35,6 +36,23 @@ interface FormData {
   mood: Mood | '';
   genres: Genre[];
 }
+
+const theme = createTheme({
+  typography: {
+    fontFamily: ['Montserrat', 'sans-serif'].join(','),
+  },
+  palette: {
+    background: {
+      default: '#101113',
+    },
+    primary: {
+      main: 'rgb(100, 106, 243)',
+    },
+    secondary: {
+      main: '#fefefe',
+    },
+  },
+});
 
 const Form: React.FC<FormProps> = ({ onSubmit }) => {
   const [formData, setFormData] = useState<FormData>({
@@ -86,72 +104,72 @@ const Form: React.FC<FormProps> = ({ onSubmit }) => {
   };
 
   return (
-    <Box>
-    <FormContainer> 
-      <form onSubmit={handleSubmit}>
-        <Typography variant="h2" gutterBottom>
-          Playlist Preferences
-        </Typography>
-        <TextField
-          label="Name"
-          name="name"
-          value={formData.name}
-          onChange={handleInputChange}
-          variant="outlined"
-          margin="normal"
-          required
-          fullWidth
-        />
-        <TextField
-          label="Age"
-          name="age"
-          value={formData.age}
-          onChange={handleInputChange}
-          type="number"
-          variant="outlined"
-          margin="normal"
-          fullWidth
-        />
-        <FormControl variant="outlined" fullWidth margin="normal">
-          <InputLabel>Mood</InputLabel>
-          <Select
-            label="Mood"
-            name="mood"
-            value={formData.mood}
-            onChange={handleMoodChange}
+    <ThemeProvider theme={theme}>
+      <Box>
+        <form onSubmit={handleSubmit} className='form-container'>
+          <Typography variant="h2" gutterBottom style={{ color: theme.palette.primary.main }}>
+            Playlist Preferences
+          </Typography>
+          <TextField
+            label="Name"
+            name="name"
+            value={formData.name}
+            onChange={handleInputChange}
+            variant="outlined"
+            margin="normal"
             required
-          >
-            {Object.values(Mood).map(mood => (
-              <MenuItem key={mood} value={mood}>{mood}</MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <FormControl variant="outlined" fullWidth margin="normal">
-          <InputLabel>Genre Preferences (select up to 3)</InputLabel>
-          <Select
-            multiple
-            label="Genre Preferences (select up to 3)"
-            name="genres"
-            value={formData.genres}
-            onChange={handleGenreChange}
-            required
-          >
-            {Object.values(Genre).map(genre => (
-              <MenuItem key={genre} value={genre}>
-                {genre}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <CustomButton type="submit" variant="contained" color="primary">
-          Submit
-        </CustomButton>
-        <CustomButton type="button" onClick={clearForm} variant="contained" color="secondary">
-          Clear Form
-        </CustomButton>
-      </form>
-    </FormContainer>
-    </Box>
+            fullWidth
+          />
+          <TextField
+            label="Age"
+            name="age"
+            value={formData.age}
+            onChange={handleInputChange}
+            type="number"
+            variant="outlined"
+            margin="normal"
+            fullWidth
+          />
+          <FormControl variant="outlined" fullWidth margin="normal">
+            <InputLabel>Mood</InputLabel>
+            <Select
+              label="Mood"
+              name="mood"
+              value={formData.mood}
+              onChange={handleMoodChange}
+              required
+            >
+              {Object.values(Mood).map(mood => (
+                <MenuItem key={mood} value={mood}>{mood}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl variant="outlined" fullWidth margin="normal">
+            <InputLabel>Genre Preferences (select up to 3)</InputLabel>
+            <Select
+              multiple
+              label="Genre Preferences (select up to 3)"
+              name="genres"
+              value={formData.genres}
+              onChange={handleGenreChange}
+              required
+            >
+              {Object.values(Genre).map(genre => (
+                <MenuItem key={genre} value={genre}>
+                  {genre}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <Button type="submit" className='btn' variant="contained" color="primary">
+            Submit
+          </Button>
+          <Button type="button" className='btn' onClick={clearForm} variant="contained" color="secondary">
+            Clear Form
+          </Button>
+        </form>
+      </Box>
+    </ThemeProvider>
   );
 };
 
